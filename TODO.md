@@ -160,3 +160,21 @@
 - [ ] Crear estrategia de copias de seguridad.
 - [ ] Revisar rendimiento con Lighthouse.
 - [ ] Revisar Core Web Vitals.
+
+---
+
+## 📦 Checklist antes de subir al repositorio
+
+- [ ] Confirmar que no existe un archivo `.env` con secretos o URLs privadas.
+- [ ] Subir `.env.example`, pero nunca `.env` ni `.env.production`.
+- [ ] No subir `node_modules/`.
+- [ ] No subir `dist/`.
+- [ ] No subir `.astro/` ni archivos generados.
+- [ ] No subir logs (`npm-debug.log`, `yarn-debug.log` o `pnpm-debug.log`).
+- [ ] Revisar que no haya claves API, contraseñas o tokens en el código.
+- [ ] Revisar que los enlaces sociales de prueba no se queden en producción.
+- [ ] Revisar que `SITE_URL` y el webhook se configuren únicamente mediante variables de entorno.
+- [ ] Ejecutar `pnpm install` para comprobar el lockfile.
+- [ ] Ejecutar `pnpm build` antes de publicar.
+- [ ] Revisar los archivos que se van a incluir con `git status`.
+- [ ] Crear el primer commit solo con código fuente, configuración, documentación, contenido e imágenes públicas.
