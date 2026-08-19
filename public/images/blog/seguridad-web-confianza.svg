@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0E1A"/>
+      <stop offset="55%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1F2937"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="75%" cy="75%" r="70%">
+      <stop offset="0%" stop-color="#A87B52" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#A87B52" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <text x="80" y="140" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="4" fill="#E8C4A8">SEGURIDAD</text>
+  <text x="80" y="470" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" fill="#F8F5F2">Seguridad y confianza</text>
+</svg>

@@ -1,0 +1,69 @@
+---
+import type { Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+
+type BlogEntry = CollectionEntry<'blog'>;
+
+interface Props {
+  page: Page<BlogEntry>;
+}
+
+const { page } = Astro.props;
+---
+
+<div class="grid gap-6 md:grid-cols-2">
+  {page.data.map((post) => (
+    <a
+      href={`/blog/${post.id}`}
+      class="group overflow-hidden rounded-2xl border border-white/5 bg-surface-light transition-all hover:border-white/10"
+    >
+      <img
+        src={post.data.coverImage}
+        alt={post.data.coverAlt}
+        class="aspect-[21/9] w-full object-cover"
+        loading="lazy"
+      />
+      <div class="p-8">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="rounded-full bg-accent/10 px-3 py-0.5 text-xs font-medium text-accent">
+            {post.data.category}
+          </span>
+          <span class="text-xs text-text-muted">{post.data.readTime}</span>
+          <span class="text-xs text-text-muted">{post.data.pubDate.toLocaleDateString('es')}</span>
+        </div>
+        <h2 class="mb-3 text-xl font-bold leading-snug group-hover:text-accent transition-colors">
+          {post.data.title}
+        </h2>
+        <p class="text-sm text-text-secondary">
+          {post.data.description}
+        </p>
+      </div>
+    </a>
+  ))}
+</div>
+
+<div class="mt-12 flex items-center justify-center gap-4">
+  <a
+    href={page.url.prev ?? '#'}
+    class={`inline-flex items-center gap-1 rounded-full border px-5 py-2.5 text-sm font-medium transition-all ${
+      page.url.prev
+        ? 'border-white/10 text-text-primary hover:border-white/25 hover:bg-white/5'
+        : 'pointer-events-none border-white/5 text-text-muted opacity-40'
+    }`}
+  >
+    ← Anterior
+  </a>
+  <span class="text-sm text-text-muted">
+    Página {page.currentPage} de {page.lastPage}
+  </span>
+  <a
+    href={page.url.next ?? '#'}
+    class={`inline-flex items-center gap-1 rounded-full border px-5 py-2.5 text-sm font-medium transition-all ${
+      page.url.next
+        ? 'border-white/10 text-text-primary hover:border-white/25 hover:bg-white/5'
+        : 'pointer-events-none border-white/5 text-text-muted opacity-40'
+    }`}
+  >
+    Siguiente →
+  </a>
+</div>

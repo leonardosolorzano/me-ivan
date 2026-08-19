@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<section id="blog" class="relative py-32">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16 flex items-end justify-between">
+      <div class="max-w-2xl">
+        <h2 class="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">
+          Blog
+        </h2>
+        <h3 class="mb-6 text-4xl font-bold tracking-tight">
+          Últimos artículos
+        </h3>
+        <p class="text-text-secondary">
+          Estrategias, consejos y buenas prácticas para impulsar tu negocio con presencia digital profesional.
+        </p>
+      </div>
+      <a
+        href="/blog"
+        class="hidden rounded-full border border-white/10 px-6 py-2.5 text-sm font-medium text-text-secondary transition-all hover:border-white/25 hover:text-text-primary sm:inline-block"
+      >
+        Ver todos →
+      </a>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      {posts.map((post) => (
+        <a
+          href={`/blog/${post.id}`}
+          class="group overflow-hidden rounded-2xl border border-white/5 bg-surface-light transition-all hover:border-white/10"
+        >
+          <img
+            src={post.data.coverImage}
+            alt={post.data.coverAlt}
+            class="aspect-[16/10] w-full object-cover"
+            loading="lazy"
+          />
+          <div class="p-6">
+            <div class="mb-3 flex items-center gap-3">
+              <span class="rounded-full bg-primary/10 px-3 py-0.5 text-xs font-medium text-primary-light">
+                {post.data.category}
+              </span>
+              <span class="text-xs text-text-muted">{post.data.readTime}</span>
+            </div>
+            <h4 class="mb-2 text-lg font-bold leading-snug group-hover:text-primary-light transition-colors">
+              {post.data.title}
+            </h4>
+            <p class="text-sm text-text-secondary line-clamp-2">
+              {post.data.description}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-8 text-center sm:hidden">
+      <a
+        href="/blog"
+        class="inline-block rounded-full border border-white/10 px-6 py-2.5 text-sm font-medium text-text-secondary transition-all hover:border-white/25 hover:text-text-primary"
+      >
+        Ver todos los artículos →
+      </a>
+    </div>
+  </div>
+</section>

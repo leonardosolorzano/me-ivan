@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogList from '../../components/BlogList.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import { POSTS_PER_PAGE } from '../../consts';
+
+export const prerender = true;
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+
+  return paginate(allPosts, { pageSize: POSTS_PER_PAGE });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout
+  title={`Blog - Página ${page.currentPage} | velix`}
+  description="Estrategias, consejos y buenas prácticas para llevar tu negocio al siguiente nivel con presencia digital profesional."
+>
+  <Header />
+  <main class="pt-32 pb-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16 max-w-2xl">
+        <h1 class="mb-4 text-4xl font-bold tracking-tight">Blog</h1>
+        <p class="text-lg text-text-secondary">
+          Estrategias, consejos y buenas prácticas para llevar tu negocio al siguiente nivel con presencia digital profesional.
+        </p>
+      </div>
+
+      <BlogList page={page} />
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

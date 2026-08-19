@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../consts';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const url = `${SITE.url}/blog/${post.id}`;
+---
+
+<BaseLayout
+  title={`${post.data.title} | velix`}
+  description={post.data.description}
+  image={post.data.coverImage}
+  type="article"
+>
+  <Header />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    image: `${SITE.url}${post.data.coverImage}`,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: post.data.pubDate.toISOString(),
+    url,
+    author: {
+      '@type': 'Organization',
+      name: SITE.name,
+      url: SITE.url,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      url: SITE.url,
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  })} />
+
+  <article class="pt-32 pb-20">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-8">
+        <a href="/blog" class="text-sm text-accent hover:text-accent-light transition-colors">← Volver al blog</a>
+      </div>
+
+      <div class="mb-8 flex items-center gap-3">
+        <span class="rounded-full bg-accent/10 px-3 py-0.5 text-xs font-medium text-accent">
+          {post.data.category}
+        </span>
+        <span class="text-xs text-text-muted">{post.data.readTime}</span>
+        <span class="text-xs text-text-muted">{post.data.pubDate.toLocaleDateString('es')}</span>
+      </div>
+
+      <h1 class="mb-8 text-4xl font-bold leading-tight tracking-tight">
+        {post.data.title}
+      </h1>
+
+      <img
+        src={post.data.coverImage}
+        alt={post.data.coverAlt}
+        class="mb-10 aspect-[21/9] w-full rounded-2xl border border-white/5 object-cover"
+      />
+
+      <div class="prose prose-invert max-w-none">
+        <Content />
+      </div>
+
+      <div class="mt-16 rounded-2xl border border-white/5 bg-surface-light p-8 text-center">
+        <h3 class="mb-3 text-xl font-bold">¿Te gustó este artículo?</h3>
+        <p class="mb-6 text-sm text-text-secondary">
+          Si necesitas ayuda con tu proyecto, podemos implementar estas soluciones para ti.
+        </p>
+        <a
+          href="/#contacto"
+          class="inline-block rounded-full bg-primary px-6 py-3 text-sm font-semibold text-surface transition-all hover:bg-primary-light"
+        >
+          Cotizar proyecto →
+        </a>
+      </div>
+    </div>
+  </article>
+  <Footer />
+</BaseLayout>

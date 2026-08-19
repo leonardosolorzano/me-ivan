@@ -1,0 +1,178 @@
+---
+import { actions } from 'astro:actions';
+---
+
+<section id="contacto" class="relative py-32 border-t border-white/5">
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute bottom-0 left-1/2 h-[400px] w-[600px] -translate-x-1/2 translate-y-1/2 rounded-full bg-primary/10 blur-[120px]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">
+        Contacto
+      </h2>
+      <h3 class="mb-6 text-4xl font-bold tracking-tight">
+        ¿Tienes un proyecto en mente?
+      </h3>
+      <p class="mb-12 text-lg text-text-secondary">
+        Cuéntanos tu idea y te daremos una cotización sin compromiso.
+        Primer consulta gratuita.
+      </p>
+
+      <div id="form-status" aria-live="polite"></div>
+
+      <form id="contact-form" method="POST" action={actions.contact} class="space-y-6 text-left">
+        <input type="hidden" name="website" value="" aria-hidden="true" tabindex="-1" autocomplete="off" />
+
+        <div class="grid gap-6 sm:grid-cols-2">
+          <div>
+            <label for="name" class="mb-2 block text-sm font-medium text-text-secondary">Nombre</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              placeholder="Tu nombre"
+              aria-required="true"
+              class="form-input w-full rounded-xl border border-white/10 bg-surface-light px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <p id="name-error" class="form-error mt-1 hidden text-xs text-red-300"></p>
+          </div>
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-text-secondary">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="tu@email.com"
+              aria-required="true"
+              class="form-input w-full rounded-xl border border-white/10 bg-surface-light px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <p id="email-error" class="form-error mt-1 hidden text-xs text-red-300"></p>
+          </div>
+        </div>
+
+        <div>
+          <label for="service" class="mb-2 block text-sm font-medium text-text-secondary">Servicio de interés</label>
+          <select
+            id="service"
+            name="service"
+            required
+            aria-required="true"
+            class="form-input w-full rounded-xl border border-white/10 bg-surface-light px-4 py-3 text-sm text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          >
+            <option value="">Selecciona un servicio</option>
+            <option value="frontend">Frontend Development</option>
+            <option value="backend">Backend Development</option>
+            <option value="database">Bases de Datos</option>
+            <option value="devops">DevOps & Cloud</option>
+            <option value="fullstack">Proyecto Full Stack</option>
+          </select>
+          <p id="service-error" class="form-error mt-1 hidden text-xs text-red-300"></p>
+        </div>
+
+        <div>
+          <label for="message" class="mb-2 block text-sm font-medium text-text-secondary">Cuéntanos sobre tu proyecto</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            required
+            minlength="10"
+            placeholder="Describe tu proyecto, objetivos y cualquier detalle relevante..."
+            aria-required="true"
+            class="form-input w-full resize-none rounded-xl border border-white/10 bg-surface-light px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          ></textarea>
+          <p id="message-error" class="form-error mt-1 hidden text-xs text-red-300"></p>
+        </div>
+
+        <button
+          id="submit-btn"
+          type="submit"
+          class="w-full rounded-full bg-primary px-8 py-4 text-sm font-semibold text-surface transition-all hover:bg-primary-light hover:shadow-xl hover:shadow-primary/25 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          Enviar mensaje
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { actions } from 'astro:actions';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status') as HTMLElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const fieldErrorMap = {
+    name: 'name-error',
+    email: 'email-error',
+    service: 'service-error',
+    message: 'message-error',
+  } as const;
+
+  type FieldKey = keyof typeof fieldErrorMap;
+
+  function showFieldErrors(fields: object) {
+    for (const [field, messages] of Object.entries(fields)) {
+      if (!(field in fieldErrorMap)) continue;
+      const errorEl = document.getElementById(fieldErrorMap[field as FieldKey]);
+      const input = form?.querySelector(`[name="${field}"]`);
+      if (errorEl && input) {
+        errorEl.textContent = (messages as string[]).join(', ');
+        errorEl.classList.remove('hidden');
+        input.classList.add('border-red-400/50', 'focus:border-red-400', 'focus:ring-red-400');
+        input.setAttribute('aria-invalid', 'true');
+      }
+    }
+  }
+
+  function clearFieldErrors() {
+    document.querySelectorAll('.form-error').forEach((el) => {
+      el.textContent = '';
+      el.classList.add('hidden');
+    });
+    document.querySelectorAll('.form-input').forEach((input) => {
+      input.classList.remove('border-red-400/50', 'focus:border-red-400', 'focus:ring-red-400');
+      input.removeAttribute('aria-invalid');
+    });
+  }
+
+  function showStatus(message: string, type: 'error' | 'success') {
+    const base = 'mb-6 rounded-xl px-4 py-3 text-sm';
+    const styles =
+      type === 'error'
+        ? 'border border-red-400/20 bg-red-400/10 text-red-200'
+        : 'border border-emerald-400/20 bg-emerald-400/10 text-emerald-200';
+    if (status) status.innerHTML = `<p class="${base} ${styles}">${message}</p>`;
+  }
+
+  if (form) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearFieldErrors();
+      if (status) status.innerHTML = '';
+      if (submitBtn) submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      const result = await actions.contact(formData);
+
+      if (result.data) {
+        form.reset();
+        showStatus('¡Mensaje enviado! Te responderemos a la brevedad.', 'success');
+      } else {
+        const error = result.error;
+        if (error && 'fields' in error && error.fields) {
+          showFieldErrors(error.fields);
+          showStatus('Corrige los campos marcados en rojo e inténtalo de nuevo.', 'error');
+        } else {
+          showStatus(error?.message || 'No pudimos enviar tu mensaje. Inténtalo de nuevo.', 'error');
+        }
+      }
+
+      if (submitBtn) submitBtn.disabled = false;
+    });
+  }
+</script>
