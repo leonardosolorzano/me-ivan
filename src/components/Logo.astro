@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+  size?: 'sm' | 'md';
+}
+
+const { class: className = '', size = 'md' } = Astro.props;
+const markSize = size === 'sm' ? 'h-6' : 'h-7';
+---
+
+<span class={`inline-flex items-center gap-2.5 ${className}`}>
+  <img
+    src="/images/logo/logo-velix-mark.png"
+    alt=""
+    aria-hidden="true"
+    class={`${markSize} w-auto shrink-0 drop-shadow-[0_0_12px_rgba(38,88,255,0.45)]`}
+    width="640"
+    height="405"
+    loading="eager"
+    decoding="async"
+  />
+  <span class="font-display text-xl font-semibold tracking-tight text-text-primary">
+    velix<span class="text-primary">.</span>
+  </span>
+</span>

@@ -1,0 +1,76 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Descubrimiento',
+    description:
+      'Entendemos tu negocio, tus usuarios y tus objetivos. Definimos alcance, arquitectura y métricas de éxito.',
+    detail: '1–2 días',
+  },
+  {
+    number: '02',
+    title: 'Diseño',
+    description:
+      'Wireframes y diseño visual a medida. Prototipos navegables para validar la experiencia antes de escribir código.',
+    detail: '3–5 días',
+  },
+  {
+    number: '03',
+    title: 'Desarrollo',
+    description:
+      'Construimos con Astro, React, FastAPI y PostgreSQL. Demos semanales y un repositorio que puedes seguir en todo momento.',
+    detail: '2–6 semanas',
+  },
+  {
+    number: '04',
+    title: 'Lanzamiento',
+    description:
+      'Deploy, dominio, analítica y SEO. Te entregamos documentación y acompañamiento después del lanzamiento.',
+    detail: '1 día + soporte',
+  },
+];
+---
+
+<section id="proceso" class="relative py-28 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-14 max-w-2xl" data-reveal>
+      <p class="eyebrow">
+        <span class="h-px w-8 bg-violet/60"></span>
+        Proceso
+      </p>
+      <h2 class="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+        De la idea al deploy,
+        <span class="text-gradient"> sin sorpresas.</span>
+      </h2>
+      <p class="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
+        Un proceso claro, con entregas visibles y comunicación directa.
+        Sabes en qué punto está tu proyecto en todo momento.
+      </p>
+    </div>
+
+    <ol class="relative grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div
+        class="pointer-events-none absolute top-[2.875rem] right-8 left-8 hidden h-px bg-gradient-to-r from-primary/40 via-accent/30 to-violet/30 lg:block"
+        aria-hidden="true"
+      ></div>
+
+      {steps.map((step, index) => (
+        <li
+          data-reveal
+          style={`--reveal-delay: ${index * 90}ms`}
+          class="group relative rounded-2xl border border-white/8 bg-surface-light/60 p-6 backdrop-blur-sm transition-colors duration-300 hover:border-white/16 hover:bg-surface-light"
+        >
+          <div class="mb-6 flex items-center justify-between">
+            <span class="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-surface font-mono text-xs font-medium text-primary transition-all duration-300 group-hover:border-primary/40 group-hover:bg-primary group-hover:text-surface">
+              {step.number}
+            </span>
+            <span class="font-mono text-[0.65rem] tracking-wider text-text-muted uppercase">{step.detail}</span>
+          </div>
+
+          <h3 class="text-lg font-semibold text-text-primary">{step.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-text-secondary">{step.description}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

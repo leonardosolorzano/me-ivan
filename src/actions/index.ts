@@ -1,5 +1,5 @@
 import { defineAction, ActionError } from 'astro:actions';
-import { z } from 'zod';
+import { z } from 'astro/zod';
 
 export const server = {
   contact: defineAction({

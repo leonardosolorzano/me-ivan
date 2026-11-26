@@ -2,8 +2,10 @@ export const SITE = {
   title: 'velix | Soluciones Digitales',
   name: 'velix',
   description:
-    'Agencia de desarrollo web, backend, bases de datos y frontend. Transformamos ideas en soluciones digitales escalables.',
-  url: import.meta.env.SITE_URL ?? 'https://velix.com',
+    'Estudio de desarrollo web: sitios estáticos ultrarrápidos y aplicaciones dinámicas con Astro, Next.js, React, Python, FastAPI, Strapi y PostgreSQL.',
+  url:
+    import.meta.env.SITE_URL ??
+    (import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : 'https://velix.com'),
   locale: 'es',
   email: 'hola@velix.com',
   social: {

@@ -1,73 +1,177 @@
 ---
-const services = [
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
-    title: 'Frontend Development',
-    description: 'Interfaces modernas, responsivas y accesibles con React, Vue, Svelte o frameworks como Astro. Experiencias de usuario que convierten.',
-    tags: ['React', 'Vue', 'Astro', 'Tailwind CSS'],
-    gradient: 'from-primary/20 to-accent/20',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
-    title: 'Backend Development',
-    description: 'APIs robustas y escalables con Node.js, Python, Go o Rust. Microservicios, autenticación, integraciones y lógica de negocio compleja.',
-    tags: ['Node.js', 'Python', 'Go', 'REST/GraphQL'],
-    gradient: 'from-primary-dark/20 to-primary/20',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
-    title: 'Bases de Datos',
-    description: 'Diseño, optimización y administración de bases de datos SQL y NoSQL. Migraciones, replicación, backups y monitoreo de alto rendimiento.',
-    tags: ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL'],
-    gradient: 'from-accent/15 to-primary-light/15',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
-    title: 'DevOps & Cloud',
-    description: 'Infraestructura como código, CI/CD, contenedores y despliegue en la nube. Automatización que acelera tu time-to-market.',
-    tags: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'],
-    gradient: 'from-primary/15 to-primary-dark/20',
-  },
+const staticFeatures = [
+  'Carga por debajo de 1 segundo',
+  'SEO técnico y metadatos incluidos',
+  'Hosting gratuito o de bajo coste',
+  'Seguridad: sin base de datos expuesta',
 ];
+
+const dynamicFeatures = [
+  'Panel de administración a medida',
+  'Login, roles y permisos de usuario',
+  'APIs documentadas y listas para integrar',
+  'Contenido editable sin tocar código',
+];
+
+const staticTech = ['Astro', 'Next.js', 'React', 'Tailwind CSS', 'JavaScript'];
+const dynamicTech = ['Python', 'FastAPI', 'PostgreSQL', 'Strapi', 'Next.js', 'React'];
 ---
 
-<section id="servicios" class="relative py-32">
-  <div class="mx-auto max-w-7xl px-6">
-    <div class="mb-16 max-w-2xl">
-      <h2 class="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">
-        Servicios
-      </h2>
-      <h3 class="mb-6 text-4xl font-bold tracking-tight">
-        Soluciones completas para cada etapa
-      </h3>
-      <p class="text-text-secondary">
-        Desde la concepción hasta el despliegue, cubrimos todo el stack tecnológico
-        para que tu proyecto sea un éxito.
-      </p>
+<section id="servicios" class="relative overflow-hidden py-28 sm:py-32">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="aurora-blob left-[-15%] top-1/4 h-[400px] w-[400px] bg-primary/8"></div>
+    <div class="aurora-blob right-[-12%] bottom-0 h-[380px] w-[380px] bg-violet/8 [animation-delay:-8s]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+    <div class="mb-14 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-primary/60"></span>
+          Servicios
+        </p>
+        <h2 class="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+          Dos formas de construir
+          <span class="text-gradient"> tu web.</span>
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
+          No todas las webs necesitan lo mismo. Elegimos la arquitectura correcta
+          para tu negocio: máxima velocidad o máxima flexibilidad.
+        </p>
+      </div>
+
+      <div data-reveal="right" class="lg:pb-1">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 font-mono text-[0.68rem] text-text-muted">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+          Astro · Next.js · FastAPI
+        </span>
+      </div>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2">
-      {services.map((service) => (
-        <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-surface-light p-8 transition-all hover:border-white/10 hover:bg-surface-lighter">
-          <div class={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 transition-opacity group-hover:opacity-100`}></div>
-          <div class="relative">
-            <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-accent transition-colors group-hover:bg-white/10">
-              <Fragment set:html={service.icon} />
-            </div>
-            <h4 class="mb-3 text-xl font-bold">{service.title}</h4>
-            <p class="mb-6 text-sm leading-relaxed text-text-secondary">
-              {service.description}
+    <div class="grid gap-5 lg:grid-cols-2">
+      <!-- Web estáticas -->
+      <article
+        data-reveal
+        data-spotlight
+        class="spotlight card-glow group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/8 bg-surface-light p-7 sm:p-9"
+      >
+        <div class="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-primary/10 blur-3xl" aria-hidden="true"></div>
+
+        <div class="relative z-10 flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></svg>
+          </span>
+          <span class="font-mono text-[0.65rem] tracking-widest text-text-muted uppercase">01 / presence</span>
+        </div>
+
+        <div class="relative z-10 mt-6">
+          <h3 class="font-display text-3xl font-semibold tracking-tight">Web estáticas</h3>
+          <p class="mt-1.5 font-mono text-xs tracking-wide text-primary">Velocidad instantánea, cero mantenimiento</p>
+          <p class="mt-4 text-sm leading-relaxed text-text-secondary">
+            Sitios corporativos, landings y portfolios generados en build time. Sin servidor
+            que mantener, con SEO impecable y Core Web Vitals en verde desde el día uno.
+          </p>
+        </div>
+
+        <ul class="relative z-10 mt-6 space-y-2.5">
+          {staticFeatures.map((feature) => (
+            <li class="flex items-start gap-2.5 text-sm text-text-secondary">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <div class="relative z-10 mt-auto pt-7">
+          <div class="flex flex-wrap gap-2">
+            {staticTech.map((tech) => (
+              <span class="rounded-lg border border-white/8 bg-white/[0.03] px-2.5 py-1 font-mono text-[0.68rem] text-text-muted transition-colors group-hover:border-white/12 group-hover:text-text-secondary">
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div class="mt-7 flex items-center justify-between gap-4 border-t border-white/8 pt-6">
+            <p class="text-xs text-text-muted">
+              <span class="text-text-secondary">Ideal para</span> marcas, landings y catálogos
             </p>
-            <div class="flex flex-wrap gap-2">
-              {service.tags.map((tag) => (
-                <span class="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-text-muted">
-                  {tag}
-                </span>
-              ))}
-            </div>
+            <a
+              href="#contacto"
+              class="group/link inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-light"
+            >
+              Cotizar
+              <span class="transition-transform duration-300 group-hover/link:translate-x-0.5">→</span>
+            </a>
           </div>
         </div>
-      ))}
+      </article>
+
+      <!-- Web dinámicas -->
+      <article
+        data-reveal
+        style="--reveal-delay: 100ms"
+        data-spotlight
+        class="spotlight card-glow group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-accent/15 bg-surface-light p-7 sm:p-9"
+      >
+        <div class="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl" aria-hidden="true"></div>
+        <div class="pointer-events-none absolute -bottom-24 -left-16 h-56 w-56 rounded-full bg-violet/10 blur-3xl" aria-hidden="true"></div>
+
+        <div class="relative z-10 flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 text-accent transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/10 px-2.5 py-1 font-mono text-[0.6rem] tracking-widest text-accent uppercase">
+            <span class="h-1 w-1 rounded-full bg-accent"></span>
+            Más solicitado
+          </span>
+        </div>
+
+        <div class="relative z-10 mt-6">
+          <h3 class="font-display text-3xl font-semibold tracking-tight">Web dinámicas</h3>
+          <p class="mt-1.5 font-mono text-xs tracking-wide text-accent">Datos reales, paneles y usuarios</p>
+          <p class="mt-4 text-sm leading-relaxed text-text-secondary">
+            Aplicaciones web con autenticación, base de datos, panel de administración y APIs.
+            Contenido que tu equipo gestiona solo, sin tocar una línea de código.
+          </p>
+        </div>
+
+        <ul class="relative z-10 mt-6 space-y-2.5">
+          {dynamicFeatures.map((feature) => (
+            <li class="flex items-start gap-2.5 text-sm text-text-secondary">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <div class="relative z-10 mt-auto pt-7">
+          <div class="flex flex-wrap gap-2">
+            {dynamicTech.map((tech) => (
+              <span class="rounded-lg border border-white/8 bg-white/[0.03] px-2.5 py-1 font-mono text-[0.68rem] text-text-muted transition-colors group-hover:border-white/12 group-hover:text-text-secondary">
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div class="mt-7 flex items-center justify-between gap-4 border-t border-white/8 pt-6">
+            <p class="text-xs text-text-muted">
+              <span class="text-text-secondary">Ideal para</span> SaaS, portales y e-commerce
+            </p>
+            <a
+              href="#contacto"
+              class="group/link inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-accent transition-colors hover:text-accent-light"
+            >
+              Cotizar
+              <span class="transition-transform duration-300 group-hover/link:translate-x-0.5">→</span>
+            </a>
+          </div>
+        </div>
+      </article>
     </div>
+
+    <p data-reveal class="mt-10 text-center text-sm text-text-muted">
+      ¿No sabes cuál necesitas?
+      <a href="#contacto" class="link-underline ml-1 font-medium text-text-primary">Te ayudamos a decidir gratis →</a>
+    </p>
   </div>
 </section>

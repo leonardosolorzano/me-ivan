@@ -1,0 +1,37 @@
+---
+interface Props {
+  reverse?: boolean;
+}
+
+const { reverse = false } = Astro.props;
+
+const tech = [
+  { name: 'Astro', dot: 'bg-primary' },
+  { name: 'Next.js', dot: 'bg-text-primary' },
+  { name: 'React', dot: 'bg-accent' },
+  { name: 'Tailwind CSS', dot: 'bg-[#38bdf8]' },
+  { name: 'JavaScript', dot: 'bg-[#f7df1e]' },
+  { name: 'TypeScript', dot: 'bg-[#3178c6]' },
+  { name: 'Python', dot: 'bg-[#ffd343]' },
+  { name: 'FastAPI', dot: 'bg-[#05998b]' },
+  { name: 'PostgreSQL', dot: 'bg-[#4a90d9]' },
+  { name: 'Strapi', dot: 'bg-[#8b7cf6]' },
+];
+
+const groups = [tech, tech];
+---
+
+<div class="marquee" aria-label="Tecnologías que utilizamos">
+  <div class={`marquee-track ${reverse ? 'marquee--reverse' : ''}`}>
+    {groups.map((group, index) => (
+      <div class="flex shrink-0 gap-3 pr-3" aria-hidden={index === 1 ? 'true' : undefined}>
+        {group.map((item) => (
+          <span class="flex items-center gap-2.5 rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 font-mono text-xs text-text-secondary backdrop-blur-sm transition-colors hover:border-white/20 hover:text-text-primary">
+            <span class={`h-1.5 w-1.5 rounded-full ${item.dot}`}></span>
+            {item.name}
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

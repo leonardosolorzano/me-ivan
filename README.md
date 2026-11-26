@@ -2,16 +2,18 @@
 
 Sitio web de la agencia velix: desarrollo web, backend, bases de datos y frontend.
 
-Construido con [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com) v4 y desplegable como SSR con el adapter de Node.
+Construido con [Astro](https://astro.build) y [Tailwind CSS](https://tailwindcss.com) v4. Las páginas se generan estáticamente y el formulario de contacto usa una Astro Action desplegada como función serverless en Vercel (plan gratuito).
 
 ## Estructura
 
 ```text
 /
 ├── public/
-│   └── images/blog/        # Portadas de los posts
+│   ├── images/blog/        # Portadas de los posts
+│   ├── images/logo/        # Logo del sitio
+│   └── images/og-default.png
 ├── src/
-│   ├── actions/            # Astro Actions (formulario de contacto)
+│   ├── actions/            # Astro Action del formulario de contacto
 │   ├── components/         # Secciones de la página y componentes UI
 │   ├── content/
 │   │   └── blog/           # Posts del blog en Markdown
@@ -22,7 +24,8 @@ Construido con [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.
 │   │   ├── robots.txt.ts   # Robots generado desde la URL del sitio
 │   │   └── 404.astro
 │   └── consts.ts           # Datos del sitio (título, URL, redes sociales)
-└── astro.config.mjs
+├── astro.config.mjs
+└── .env.example
 ```
 
 ## Comandos
@@ -31,17 +34,43 @@ Construido con [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.
 | :------ | :----- |
 | `pnpm install` | Instala dependencias |
 | `pnpm dev` | Servidor de desarrollo en `localhost:4321` |
-| `pnpm build` | Build de producción a `./dist/` |
-| `pnpm preview` | Previsualiza el build localmente (SSR) |
+| `pnpm build` | Build de producción; genera `dist/` y `.vercel/output/` |
+| `pnpm preview` | Previsualiza las páginas estáticas generadas |
+
+Para probar el formulario de contacto en local, usa `pnpm dev`. En `pnpm preview` las páginas están prerenderizadas y la Action no está disponible.
 
 ## Configuración
 
 Copia `.env.example` a `.env` y ajusta:
 
-- `SITE_URL` — URL pública del sitio (sitemap, RSS, Open Graph, robots.txt).
-- `CONTACT_WEBHOOK_URL` — URL de un servicio de email (Formspree, Resend, Make, Zapier, Discord webhook, etc.). El formulario de contacto envía un POST con JSON `{ name, email, service, message }`. Sin este valor, el formulario muestra un error indicando que falta configurar.
+- `SITE_URL` — URL pública definitiva (sitemap, RSS, Open Graph, robots.txt y canonical). Si no se define, se usa automáticamente la URL de Vercel durante el deploy; para un dominio propio debes configurarla.
+- `CONTACT_WEBHOOK_URL` — URL de un servicio de email (Formspree, Resend, Make, Zapier, Discord webhook, etc.). El formulario envía un POST con JSON `{ name, email, service, message }`. Sin este valor, el formulario muestra un error indicando que falta configurar.
 
 Datos del sitio (nombre, descripción, redes sociales) en `src/consts.ts`.
+
+## Subir a GitHub
+
+El repositorio ya tiene el remote `origin` apuntando a `git@github.com:leonardosolorzano/me-ivan.git`.
+
+```bash
+git status
+git add .
+git commit -m "feat: nuevo logo y preparación para deploy en Vercel"
+git push -u origin main
+```
+
+Revisa antes que no aparezcan `.env`, `node_modules/`, `dist/` ni `.vercel/` en `git status` (están ignorados).
+
+## Deploy en Vercel (gratis)
+
+1. Entra en [vercel.com/new](https://vercel.com/new) e importa el repositorio de GitHub.
+2. Vercel detecta Astro automáticamente. Deja el build command `pnpm build` y no sobrescribas el directorio de salida: el adaptador `@astrojs/vercel` genera `.vercel/output/`.
+3. En **Environment Variables**, añade:
+   - `SITE_URL`: la URL definitiva (por ejemplo `https://tu-proyecto.vercel.app` o tu dominio).
+   - `CONTACT_WEBHOOK_URL`: el webhook que recibirá los mensajes.
+4. Haz clic en **Deploy**. Los pushes a `main` generarán despliegues de producción y las demás ramas, preview deployments.
+
+El plan Hobby de Vercel es gratuito e incluye las funciones serverless que necesita el formulario de contacto.
 
 ## Añadir un post
 

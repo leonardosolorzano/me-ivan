@@ -50,45 +50,64 @@ const url = `${SITE.url}/blog/${post.id}`;
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
   })} />
 
-  <article class="pt-32 pb-20">
-    <div class="mx-auto max-w-3xl px-6">
-      <div class="mb-8">
-        <a href="/blog" class="text-sm text-accent hover:text-accent-light transition-colors">← Volver al blog</a>
-      </div>
+  <article class="relative overflow-hidden pt-32 pb-20 sm:pt-40">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="pointer-events-none absolute top-0 left-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/8 blur-[120px]"></div>
+    </div>
 
-      <div class="mb-8 flex items-center gap-3">
-        <span class="rounded-full bg-accent/10 px-3 py-0.5 text-xs font-medium text-accent">
+    <div class="relative mx-auto max-w-3xl px-6">
+      <a
+        href="/blog"
+        class="group inline-flex items-center gap-2 font-mono text-[0.7rem] tracking-widest text-text-muted uppercase transition-colors hover:text-primary"
+      >
+        <span class="transition-transform duration-300 group-hover:-translate-x-0.5">←</span>
+        Volver al blog
+      </a>
+
+      <div class="mt-8 mb-6 flex flex-wrap items-center gap-2.5">
+        <span class="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] tracking-wide text-primary uppercase">
           {post.data.category}
         </span>
-        <span class="text-xs text-text-muted">{post.data.readTime}</span>
-        <span class="text-xs text-text-muted">{post.data.pubDate.toLocaleDateString('es')}</span>
+        <span class="font-mono text-[0.65rem] text-text-muted">{post.data.readTime}</span>
+        <span class="h-0.5 w-0.5 rounded-full bg-text-muted"></span>
+        <span class="font-mono text-[0.65rem] text-text-muted">
+          {post.data.pubDate.toLocaleDateString('es', { day: '2-digit', month: 'long', year: 'numeric' })}
+        </span>
       </div>
 
-      <h1 class="mb-8 text-4xl font-bold leading-tight tracking-tight">
+      <h1 class="text-3xl leading-[1.1] font-semibold tracking-tight sm:text-[2.9rem]">
         {post.data.title}
       </h1>
+
+      <p class="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
+        {post.data.description}
+      </p>
 
       <img
         src={post.data.coverImage}
         alt={post.data.coverAlt}
-        class="mb-10 aspect-[21/9] w-full rounded-2xl border border-white/5 object-cover"
+        class="mt-10 mb-12 aspect-[21/9] w-full rounded-2xl border border-white/8 object-cover"
       />
 
-      <div class="prose prose-invert max-w-none">
+      <div class="prose max-w-none">
         <Content />
       </div>
 
-      <div class="mt-16 rounded-2xl border border-white/5 bg-surface-light p-8 text-center">
-        <h3 class="mb-3 text-xl font-bold">¿Te gustó este artículo?</h3>
-        <p class="mb-6 text-sm text-text-secondary">
-          Si necesitas ayuda con tu proyecto, podemos implementar estas soluciones para ti.
-        </p>
-        <a
-          href="/#contacto"
-          class="inline-block rounded-full bg-primary px-6 py-3 text-sm font-semibold text-surface transition-all hover:bg-primary-light"
-        >
-          Cotizar proyecto →
-        </a>
+      <div class="relative mt-16 overflow-hidden rounded-2xl border border-white/10 bg-surface-light p-8 text-center sm:p-10">
+        <div class="pointer-events-none absolute -top-20 left-1/2 h-40 w-64 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl" aria-hidden="true"></div>
+        <div class="relative">
+          <h3 class="font-display text-2xl font-semibold text-text-primary">¿Te ha resultado útil?</h3>
+          <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-text-secondary">
+            Si necesitas aplicar estas ideas en tu proyecto, podemos diseñarlo y construirlo contigo.
+          </p>
+          <a
+            href="/#contacto"
+            class="btn-shimmer mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-surface transition-all hover:bg-primary-light"
+          >
+            <span class="relative z-10">Cotizar proyecto</span>
+            <span class="relative z-10">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </article>

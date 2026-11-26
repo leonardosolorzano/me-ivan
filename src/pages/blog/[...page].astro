@@ -25,12 +25,25 @@ const { page } = Astro.props;
   description="Estrategias, consejos y buenas prácticas para llevar tu negocio al siguiente nivel con presencia digital profesional."
 >
   <Header />
-  <main class="pt-32 pb-20">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="mb-16 max-w-2xl">
-        <h1 class="mb-4 text-4xl font-bold tracking-tight">Blog</h1>
-        <p class="text-lg text-text-secondary">
-          Estrategias, consejos y buenas prácticas para llevar tu negocio al siguiente nivel con presencia digital profesional.
+  <main class="relative overflow-hidden pt-32 pb-20 sm:pt-40">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="bg-grid absolute inset-0"></div>
+      <div class="aurora-blob left-[-10%] top-[-20%] h-[380px] w-[380px] bg-primary/10"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="mb-14 max-w-2xl" data-reveal>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-primary/60"></span>
+          Blog
+        </p>
+        <h1 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
+          Aprende a construir
+          <span class="text-gradient"> mejor.</span>
+        </h1>
+        <p class="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
+          Estrategias, rendimiento y buenas prácticas para que tu presencia
+          digital trabaje a favor de tu negocio.
         </p>
       </div>
 
